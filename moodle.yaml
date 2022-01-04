@@ -32,3 +32,42 @@ spec:
               key: password
         - name: MARIADB_HOST
           value: mysql-db
+          ports:
+        - containerPort: 80
+          name: wordpress
+        volumeMounts:
+        - name: moodle-persistent-storage
+          mountPath: /var/www/html
+    volumes:
+      - name: moodle-persistent-storage
+        persistentVolumeClaim:
+          claimName: moodle-pv-claim
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: moodle-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: moodle-pv-claim
+  labels:
+    app: moodle
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
