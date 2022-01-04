@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mymoodle
+  labels:
+    app: moodle
+spec:
+  selector:
+    matchLabels:
+      app: moodle
+      tier: frontend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: moodle
+        tier: frontend
+    spec:
+      containers:
+      - image: bitnami/moodle:latest
+        name: mymoodle
+        env:
+        - name: MOODLE_DATABASE_USER
+          value: "root"
+        - name: MOODLE_DATABASE_NAME
+          value: "moodle"
+        - name: MOODLE_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
+        - name: MARIADB_HOST
+          value: mysql-db
