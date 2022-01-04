@@ -34,7 +34,7 @@ spec:
           value: mysql-db
           ports:
         - containerPort: 80
-          name: wordpress
+          name: moodle
         volumeMounts:
         - name: moodle-persistent-storage
           mountPath: /var/www/html
