@@ -35,13 +35,7 @@ spec:
           ports:
         - containerPort: 80
           name: moodle
-        volumeMounts:
-        - name: moodle-persistent-storage
-          mountPath: /var/www/html
-    volumes:
-      - name: moodle-persistent-storage
-        persistentVolumeClaim:
-          claimName: moodle-pv-claim
+      
 ---
 apiVersion: v1
 kind: PersistentVolume
