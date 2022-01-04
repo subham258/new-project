@@ -18,7 +18,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: bitnami/moodle:latest
+      - image: suprobhat1997/project:v5
         name: mymoodle
         env:
         - name: MOODLE_DATABASE_USER
